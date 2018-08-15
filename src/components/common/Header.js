@@ -3,13 +3,13 @@ import React from 'react';
 import {ReactNative, Text, View} from 'react-native';
 
 // Create the component
-const Header = (props) => {
+const Header = ({headerText}) => {
 
     const {viewStyle, textStyle} = styles;
 
     return (
         <View style={viewStyle}>
-            <Text style={textStyle}>{props.headerText}</Text>
+            <Text style={textStyle}>{headerText}</Text>
         </View>
     );
 
@@ -31,10 +31,11 @@ const styles = {
         position: 'relative'
     },
     textStyle: {
-        fontSize: 30,
-        color: '#000'
+        fontSize: 25,
+        color: '#000',
+        marginTop: 10
     }
 };
 
 // Make the component available to other parts of the app
-export default Header;
+export {Header};
