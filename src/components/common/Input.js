@@ -12,9 +12,10 @@ const Input = ({label, value, whenTextChanged, placeholder, isPassword}) => {
                 placeholder={placeholder}
                 style={inputStyle}
                 value={value}
-                onTextChange={whenTextChanged}
+                onChangeText={whenTextChanged}
                 autoCorrect={false}
                 secureTextEntry={isPassword}
+                autoCapitalize='none'
             />
         </View>
     );
