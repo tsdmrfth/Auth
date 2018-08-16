@@ -1,11 +1,17 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import firebase from 'firebase';
-import {Header} from './components/common'
+import {Button, Header, Spinner} from './components/common'
 import Constans from './Constants'
 import LoginForm from './components/LoginForm'
 
 class App extends Component {
+
+    state = {loggedIn: null};
+
+    static onLogOutButtonClicked() {
+        firebase.auth().signOut();
+    }
 
     componentWillMount() {
         firebase.initializeApp({
@@ -16,13 +22,44 @@ class App extends Component {
             storageBucket: Constans.storageBucket,
             messagingSenderId: Constans.messagingSenderId
         });
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({loggedIn: true});
+            } else {
+                this.setState({loggedIn: false});
+            }
+        });
+    }
+
+    renderContent() {
+        switch (this.state.loggedIn) {
+            case true: {
+                return (
+                    <Button
+                        whenClicked={App.onLogOutButtonClicked.bind(this)}>
+                        Log Out
+                    </Button>
+                );
+            }
+            case false: {
+                return <LoginForm/>;
+            }
+            default: {
+                return (
+                    <View style={{justifyContent: 'center', alignItems: 'center', alignSelf: 'center'}}>
+                        <Spinner spinnerSize={"large"}/>
+                    </View>
+                );
+            }
+        }
     }
 
     render() {
         return (
-            <View>
+            <View style={{height: 100}}>
                 <Header headerText={'Firebase Authentication'}/>
-                <LoginForm/>
+                {this.renderContent()}
             </View>
         );
     }
