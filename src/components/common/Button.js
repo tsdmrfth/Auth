@@ -18,9 +18,10 @@ const styles = {
         alignSelf: 'stretch',
         backgroundColor: '#fff',
         borderRadius: 5,
-        borderColor: '#007aff',
         borderWidth: 1,
-        margin: 5
+        borderColor: '#007aff',
+        marginLeft: 5,
+        marginRight: 5
     },
     textStyle: {
         alignSelf: 'center',
